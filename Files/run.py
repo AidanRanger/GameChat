@@ -28,12 +28,13 @@ def load_user(user_id):
     return User.query.get(user_id)
 ###########################################################################################################
 #routes
-@app.route('/home')
+@app.route('/')
 def home():
      return render_template('home.html')
 
 @app.route('/login', methods=['GET','POST'])
 def login():
+    return render_template('login.html')
     if request.method == 'POST':
         user = User.query.filter_by(username=request.form.get('username')).first()
         if user and user.check_password(request.form.get('password')): 
