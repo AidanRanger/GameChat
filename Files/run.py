@@ -39,6 +39,10 @@ class Games(db.Model):
 def load_user(user_id):
     return User.query.get(user_id)
 ###########################################################################################################
+#Logins
+login_manager.login_view = "users.login"
+
+###########################################################################################################
 #routes
 @app.route('/')
 def home():
@@ -55,6 +59,10 @@ def login():
 
 @app.route('/signup')
 def signup():
+    if request.method == "POST":
+        cursor = get_db().cursor()
+        newuser = request.form['username']
+
     return render_template('signup.html')
 
 
