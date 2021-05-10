@@ -11,7 +11,8 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite3'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
-login_manager = LoginManager(app)
+login_manager = LoginManager()
+login_manager.init_app(app)
 ###########################################################################################################
 #classes
 usergames = db.Table('usergames',
@@ -19,9 +20,9 @@ usergames = db.Table('usergames',
     db.Column('games_id', db.Integer, db.ForeignKey('games.id'), primary_key=True)
 )
 
-class User(db.Model):
+class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(20), nullable=False) 
+    username = db.Column(db.String(20), nullable=False, unique=True) 
     password = db.Column(db.String(50), nullable=False)
     def __repr__(self):
         return f'Username: {self.username}'
@@ -37,7 +38,7 @@ class Games(db.Model):
 
 @login_manager.user_loader
 def load_user(user_id):
-    return User.query.get(user_id)
+    return User.query.get(int(user_id))
 ###########################################################################################################
 #Logins
 login_manager.login_view = "users.login"
@@ -50,20 +51,27 @@ def home():
 
 @app.route('/login', methods=['GET','POST'])
 def login():
-    return render_template('login.html')
-    if request.method == 'POST':
-        user = User.query.filter_by(username=request.form.get('username')).first()
-        if user and user.check_password(request.form.get('password')): 
-            login_user(user)
-            return redirect(url_for('home'))
-
+    form = LoginForm()
+    if form.validate_on_submit():
+        login_user(user)
+    flask.flash('Login Successful')
 @app.route('/signup')
 def signup():
     if request.method == "POST":
         cursor = get_db().cursor()
         newuser = request.form['username']
 
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return 'You are now logged out!'
+
     return render_template('signup.html')
+@app.route('/games')
+@login_required
+def games():
+    return render_template('games.html')
 
 
 if __name__ == "__main__":
