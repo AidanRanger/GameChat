@@ -13,6 +13,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
+DATABASE = './DATABASES/db.sqlite3'
 ###########################################################################################################
 #classes
 usergames = db.Table('usergames',
@@ -42,6 +43,14 @@ def load_user(user_id):
 ###########################################################################################################
 #Logins
 login_manager.login_view = "users.login"
+###########################################################################################################
+#functions
+
+def get_db():
+    db = getattr(g,'_database', None)
+    if db is None:
+        db = g._database = sqlite3.connect(DATABASE)
+    return db
 
 ###########################################################################################################
 #routes
@@ -71,7 +80,11 @@ def logout():
 @app.route('/games')
 @login_required
 def games():
-    return render_template('games.html')
+    cursor = get_db().cursor()
+    sql = 'SELECT * FROM contents'
+    cursor.execute(sql)
+    results = cursor.fetchall()
+    return render_template('games.html', results=results)
 
 
 if __name__ == "__main__":
