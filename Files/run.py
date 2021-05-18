@@ -4,7 +4,7 @@ from flask_login.mixins import UserMixin
 from flask_login.utils import login_required, logout_user
 from flask_login import LoginManager, login_user, current_user
 from datetime import datetime
-
+import sqlite3
 ###########################################################################################################
 #initialization
 app = Flask(__name__)
@@ -78,13 +78,22 @@ def logout():
 
     return render_template('signup.html')
 @app.route('/games')
-@login_required
+
 def games():
     cursor = get_db().cursor()
-    sql = 'SELECT * FROM contents'
+    sql = 'SELECT csgo FROM games'
     cursor.execute(sql)
-    results = cursor.fetchall()
-    return render_template('games.html', results=results)
+    csgo = cursor.fetchall()
+    sql = 'SELECT Lol FROM games'
+    cursor.execute(sql)
+    LoL = cursor.fetchall()
+    sql = 'SELECT Apex FROM games'
+    cursor.execute(sql)
+    Apex = cursor.fetchall()
+    sql = 'SELECT CoD FROM games'
+    cursor.execute(sql)
+    CoD = cursor.fetchall()
+    return render_template('games.html', csgo = csgo, LoL = LoL, Apex = Apex, CoD = CoD)
 
 
 if __name__ == "__main__":
