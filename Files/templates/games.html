@@ -7,19 +7,27 @@
 <h1>Games Select</h1>
 <div csgo>
     <h2>CSGO</h2>
-    {{csgo}}
+    {% for i in csgo %}
+    <p>{{ i[0] }}</p>
+    {% endfor %}
 </div>
 <div apex>
     <h2>APEX</h2>
-    {{Apex}}
+    {% for i in Apex %}
+    <p>{{ i[0] }}</p>
+    {% endfor %}
 </div>
 <div lol>
     <h2>LEAGUE</h2>
-    {{LoL}}
+    {% for i in LoL %}
+    <p>{{ i[0] }}</p>
+    {% endfor %}
 </div>
 <div cod>
     <h2>CALL OF DUTY</h2>
-    {{CoD}}
+    {% for i in CoD %}
+    <p>{{ i[0] }}</p>
+    {% endfor %}
 </div>
 </body>
 </html>
