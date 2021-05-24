@@ -1,0 +1,84 @@
+html {
+    background-color: rgb(29, 29, 29);
+} 
+
+#GamesTitle {
+    text-align: center;
+    color: aliceblue;
+    
+}
+.Games1 {
+    margin: auto;
+    padding:10px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.card1 {
+    background-color: black;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    width: 25%;
+    height: 350px;
+    text-align: center;
+    font-family: arial;
+    margin: auto;
+}
+
+@media (max-width: 800px) {
+    .Games1 {
+        flex-direction: column;
+    }
+}
+
+.card1 button {
+    border: none;
+    outline: 0;
+    padding: 12px;
+    color: white;
+    background-color:rgb(61, 61, 61);
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+    font-size: 18px;
+}
+
+.card1 button:hover {
+    opacity: 0.5;
+}
+
+.card1 img {
+    width: 200px;
+    height: 200px;
+}
+
+.card1 h1 {
+    color:white;
+}
+
+.navbar {
+    display: flex;
+    flex-direction: row;
+    margin: auto;
+    background-color: rgb(75, 75, 75);
+    width: 100%;
+}
+
+.navbar a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 30px;
+    text-decoration: none;
+    border-left: 1px solid #bbb;
+    border-right: none;
+    width: 25%;
+}
+
+.navbar a:hover {
+    background-color: #111;
+  }
+
+.navbar a.currentpage {
+    background-color:rgb(36, 36, 36);
+}
