@@ -2,8 +2,15 @@
 <html>
 <head>
 <title>Login</title>
+<link rel="stylesheet" href={{url_for('static',filename='styles.css')}}>
 </head>
 <body style="background-color: aquamarine;">
+<div class="navbar">
+    <a href="/">Home</a>
+    <a class="currentpage" href="/login">Login</a>
+    <a href="/signup">Signup</a>
+    <a href="/games">Games</a>
+</div>
 <div>
 <form action="" method="post">
     <label>USERNAME</label><br>
