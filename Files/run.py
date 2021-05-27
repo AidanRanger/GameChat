@@ -56,7 +56,7 @@ def get_db():
 #routes
 @app.route('/')
 def home():
-     return render_template('home.html')
+    return render_template('home.html')
 
 @app.route('/login', methods=['GET','POST'])
 def login():
@@ -64,6 +64,7 @@ def login():
     if form.validate_on_submit():
         login_user(user)
     flask.flash('Login Successful')
+    return flask.render_template('login.html', form=form)
 @app.route('/signup')
 def signup():
     if request.method == "POST":
@@ -94,6 +95,23 @@ def games():
     cursor.execute(sql)
     CoD = cursor.fetchall()
     return render_template('games.html', csgo = csgo, LoL = LoL, Apex = Apex, CoD = CoD)
+
+@app.route('/csgo')
+def csgo():
+    cursor = get_db().cursor()
+    sql = 'SELECT csgo FROM games'
+    cursor.execute(sql)
+    csgo = cursor.fetchall()
+    return render_template('csgo.html', csgo = csgo)
+
+@app.route('/apex')
+def apex():
+    cursor = get_db().cursor()
+    sql = 'SELECT apex FROM games'
+    cursor.execute(sql)
+    apex = cursor.fetchall()
+    return render_template('Apex.html', apex = apex)
+
 
 
 if __name__ == "__main__":

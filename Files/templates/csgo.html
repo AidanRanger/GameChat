@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>csgo</title>
+<link rel="stylesheet" href={{url_for('static',filename='styles.css')}}>
+</head>
+<body>
+<h1>CSGO</h1>
+<div class="navbar">
+    <a href="/">Home</a>
+    <a href="/login">Login</a>
+    <a href="/signup">Signup</a>
+    <a href="/games">Games</a>
+</div>
+<div class="Game-users-text">
+    {% for i in csgo %}
+    <p>{{ i[0] }}</p>
+    {% endfor %}
+</div>
+</body>
+</html>
