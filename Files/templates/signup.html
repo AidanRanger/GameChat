@@ -6,11 +6,40 @@
 </head>
 <body>
 <div class="navbar">
+    <h1>GameChat</h1>
     <a href="/">Home</a>
     <a href="/login">Login</a>
     <a class="currentpage" href="/signup">Signup</a>
     <a href="/games">Games</a>
 </div>
-<h1>Please sign up here</h1>
+<form action="action_page.php" style="border:1px solid #ccc">
+    <div class="container">
+      <h1>Sign Up</h1>
+      <p>Please fill in this form to create an account.</p>
+      <hr>
+  
+      <label for="Username"><b>Username</b></label>
+      <input type="text" placeholder="Enter Username" name="Username" required>
+  
+      <label for="Password"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="Password" required>
+
+      <label for="CSGO"><b>CS:GO</b></label>
+      <input type="CSGO" placeholder="Enter CSGO Username" name="CSGO">
+      <label for="Apex"><b>Apex</b></label>
+      <input type="Apex" placeholder="Enter Apex Username" name="Apex">
+      <label for="LoL"><b>LoL</b></label>
+      <input type="LoL" placeholder="Enter LoL Username" name="LoL">
+      <label for="CoD"><b>CoD</b></label>
+      <input type="CoD" placeholder="Enter CoD Username" name="CoD">
+
+      <div class="clearfix">
+
+        <button type="button" class="cancelbtn">Cancel</button>
+        <button type="submit" class="signupbtn">Sign Up</button>
+
+      </div>
+    </div>
+  </form>
 </body>
 </html>

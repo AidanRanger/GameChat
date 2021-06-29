@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>UsernameTable</title>
+<link rel="stylesheet" href={{url_for('static',filename='styles.css')}}>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+<body>
+<div class="w3-container">
+    <div class="navbar">
+    <h1>GameChat</h1>
+    <a href="/">Home</a>
+    <a href="/login">Login</a>
+    <a href="/signup">Signup</a>
+    <a href="/games">Games</a>
+</div>
+<div class="Game-users-text">
+    <table class="w3-table-all">
+        <tr id='table-headings'>
+            <td>User</td>
+            <td>CSGO</td>
+            <td>LoL</td>
+            <td>Apex</td>
+            <td>CoD</td>
+        
+        {% for game in results%}
+        <tr>
+            
+                <td>{{ game[0] }}</td>
+                <td>{{ game[1] }}</td>
+                <td>{{ game[2] }}</td>
+                <td>{{ game[3] }}</td>
+                <td>{{ game[4] }}</td>
+            
+        </tr>
+        {% endfor %}
+        </tr>      
+    </table>
+</div>
+</div>
+</body>
+</html>
