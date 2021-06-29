@@ -1,5 +1,8 @@
 html {
-    background-color: rgb(29, 29, 29);
+    background-image: url('background2.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: rgb(41, 41, 41);
 } 
 
 #GamesTitle {
@@ -13,13 +16,14 @@ html {
     width: 100%;
     display: flex;
     flex-direction: row;
+    opacity: 75%;
 }
 
 .card1 {
     background-color: black;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     width: 25%;
-    height: 350px;
+    height: 75%;
     text-align: center;
     font-family: arial;
     margin: auto;
@@ -47,16 +51,12 @@ html {
     opacity: 0.5;
 }
 
-.card1 img {
-    width: 200px;
-    height: 200px;
-}
-
 .card1 h1 {
     color:white;
 }
 
 .navbar {
+    opacity: 75%;
     display: flex;
     flex-direction: row;
     margin: auto;
@@ -72,7 +72,7 @@ html {
     text-decoration: none;
     border-left: 1px solid #bbb;
     border-right: none;
-    width: 25%;
+    width: 15%;
 }
 
 .navbar a:hover {
@@ -83,6 +83,22 @@ html {
     background-color:rgb(36, 36, 36);
 }
 
+.navbar h1 {
+    font-size: larger;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    text-align: center;
+    width: 40%;
+}
 .Game-users-text p {
-    color: white;
+    color: rgb(70, 40, 40);
+}
+
+#table-headings {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: large;
+}
+
+.w3-table-all {
+    opacity: 75%;
+    margin-top: 5%;
 }
