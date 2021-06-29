@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login.mixins import UserMixin
 from flask_login.utils import login_required, logout_user
 from flask_login import LoginManager, login_user, current_user
+from wtforms import Form, BooleanField, StringField, PasswordField, validators
 from datetime import datetime
 import sqlite3
 ###########################################################################################################
@@ -34,8 +35,14 @@ class Games(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     csgo = db.Column(db.String, nullable=False)
     LoL = db.Column(db.String, nullable=False)
-    Apex = db.Column(db.String, nullable=False)
+    apex = db.Column(db.String, nullable=False)
     CoD = db.Column(db.String, nullable=False)
+  
+class LoginForm(Form):
+    username = StringField('Username', [validators.Length(min=4, max=25)])
+    password = PasswordField('New Password', [
+        validators.DataRequired()
+    ])
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -63,13 +70,18 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         login_user(user)
-    flask.flash('Login Successful')
+        flask.flash('Login Successful')
     return flask.render_template('login.html', form=form)
-@app.route('/signup')
-def signup():
-    if request.method == "POST":
-        cursor = get_db().cursor()
-        newuser = request.form['username']
+
+@app.route('/signup', methods=['GET', 'POST'])
+def register():
+    form = LoginForm(request.form)
+    if request.method == 'POST' and form.validate():
+        user = User(form.username.data, form.password.data)
+        db_session.add(user)
+        flash('Thanks for registering')
+        return redirect(url_for('login'))
+    return render_template('signup.html', form=form)
 
 @app.route('/logout')
 @login_required
@@ -82,37 +94,18 @@ def logout():
 
 def games():
     cursor = get_db().cursor()
-    sql = 'SELECT csgo FROM games'
+    sql = 'SELECT games.csgo, games.LoL, games.Apex, games.CoD FROM usergames JOIN games ON usergames.games_id=games.id JOIN user ON usergames.user_id=user.id'
     cursor.execute(sql)
-    csgo = cursor.fetchall()
-    sql = 'SELECT Lol FROM games'
-    cursor.execute(sql)
-    LoL = cursor.fetchall()
-    sql = 'SELECT Apex FROM games'
-    cursor.execute(sql)
-    Apex = cursor.fetchall()
-    sql = 'SELECT CoD FROM games'
-    cursor.execute(sql)
-    CoD = cursor.fetchall()
-    return render_template('games.html', csgo = csgo, LoL = LoL, Apex = Apex, CoD = CoD)
+    results = cursor.fetchall()
+    return render_template('games.html', results=results)
 
-@app.route('/csgo')
-def csgo():
+@app.route('/GameTable')
+
+def GameTable():
     cursor = get_db().cursor()
-    sql = 'SELECT csgo FROM games'
+    sql = 'SELECT user.username, games.csgo, games.LoL, games.Apex, games.CoD FROM usergames JOIN games ON usergames.games_id=games.id JOIN user ON usergames.user_id=user.id'
     cursor.execute(sql)
-    csgo = cursor.fetchall()
-    return render_template('csgo.html', csgo = csgo)
-
-@app.route('/apex')
-def apex():
-    cursor = get_db().cursor()
-    sql = 'SELECT apex FROM games'
-    cursor.execute(sql)
-    apex = cursor.fetchall()
-    return render_template('Apex.html', apex = apex)
-
-
-
+    results = cursor.fetchall()
+    return render_template('Game-Table.html', results=results )
 if __name__ == "__main__":
     app.run(debug=True)
