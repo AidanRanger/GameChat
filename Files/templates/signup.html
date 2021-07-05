@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>Sign up</title>
-<link rel="stylesheet" href={{url_for('static',filename='styles.css')}}>
+<link rel="stylesheet" href="{{url_for('static',filename='styles.css')}}">
 </head>
 <body>
 <div class="navbar">
@@ -39,6 +39,14 @@
         <button type="submit" class="signupbtn">Sign Up</button>
 
       </div>
+      {% from "_formhelpers.html" import render_field %}
+<form method=post>
+  <dl>
+    {{ render_field(form.username) }}
+    {{ render_field(form.password) }}
+  </dl>
+  <p><input type=submit value=Register>
+</form>
     </div>
   </form>
 </body>
