@@ -74,7 +74,7 @@ def login():
     return flask.render_template('login.html', form=form)
 
 @app.route('/signup', methods=['GET', 'POST'])
-def register():
+def signup():
     form = LoginForm(request.form)
     if request.method == 'POST' and form.validate():
         user = User(form.username.data, form.password.data)
