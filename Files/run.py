@@ -57,11 +57,11 @@ def logout():
 
     return render_template('signup.html')
 '''
-@app.route('/NewData')
-def NewData():
+@app.route('/Add')
+def Add():
     return render_template('NewData.html')
 
-@app.route('/info')
+@app.route('/Info')
 def Info():
     return render_template('Info.html')
 
@@ -74,12 +74,12 @@ def games():
     return render_template('games.html', results=results)
 
 @app.route('/GameTable')
-
 def GameTable():
     cursor = get_db().cursor()
     sql = 'SELECT user.username, games.csgo, games.LoL, games.Apex, games.CoD FROM usergames JOIN games ON usergames.games_id=games.id JOIN user ON usergames.user_id=user.id'
     cursor.execute(sql)
     results = cursor.fetchall()
     return render_template('Game-Table.html', results=results )
+
 if __name__ == "__main__":
     app.run(debug=True)
