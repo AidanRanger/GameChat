@@ -16,7 +16,24 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 DATABASE = './DATABASES/db.sqlite3'
 ###########################################################################################################
+UserGames = db.Table('UserGames',
+    db.Column('user_id', db.Integer, db.ForeignKey('user.id'), primary_key=True),
+    db.Column('games_id', db.Integer, db.ForeignKey('games.id'), primary_key=True)
+)
+class Publisher(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    name = db.Column(db.String)
 
+class Games(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String)
+    description = db.Column(db.String)
+    publisher_id = db.Column(db.Integer, ForeignKey('publisher.id'))
+
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(20), unique=True) 
+    
 #functions
 
 def get_db():
@@ -68,7 +85,7 @@ def Info():
 @app.route('/games')
 def games():
     cursor = get_db().cursor()
-    sql = 'SELECT games.csgo, games.LoL, games.Apex, games.CoD FROM usergames JOIN games ON usergames.games_id=games.id JOIN user ON usergames.user_id=user.id'
+    sql = 'SELECT games.csgo, games.LoL, games.Apex, games.CoD FROM  JOIN games ON .games_id=games.id JOIN user ON .user_id=user.id'
     cursor.execute(sql)
     results = cursor.fetchall()
     return render_template('games.html', results=results)
@@ -76,7 +93,7 @@ def games():
 @app.route('/GameTable')
 def GameTable():
     cursor = get_db().cursor()
-    sql = 'SELECT user.username, games.csgo, games.LoL, games.Apex, games.CoD FROM usergames JOIN games ON usergames.games_id=games.id JOIN user ON usergames.user_id=user.id'
+    sql = 'SELECT user.username, games.csgo, games.LoL, games.Apex, games.CoD FROM  JOIN games ON .games_id=games.id JOIN user ON .user_id=user.id'
     cursor.execute(sql)
     results = cursor.fetchall()
     return render_template('Game-Table.html', results=results )
